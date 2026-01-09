@@ -1,0 +1,15 @@
+{
+  "type": "theatricalwb:workbench",
+  "materials": [
+    {
+      "item": "minecraft:paper"
+    },
+    {
+      "item": "minecraft:iron_nugget"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "theatrical:configuration_card"
+  }
+}

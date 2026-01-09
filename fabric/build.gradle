@@ -1,0 +1,135 @@
+plugins {
+  id "com.github.johnrengelman.shadow" version "7.1.2"
+}
+
+architectury {
+  platformSetupLoomIde()
+  fabric()
+}
+
+loom {
+  accessWidenerPath = project(":common").loom.accessWidenerPath
+
+  runs {
+    data {
+      client()
+
+      name = "Minecraft Data"
+      vmArg("-Dfabric-api.datagen")
+      vmArg("-Dfabric-api.datagen.modid=${mod_id}")
+      vmArg("-Dfabric-api.datagen.output-dir=${project(":common").file("src/generated/resources")}")
+      vmArg("-Dporting_lib.datagen.existing_resources=${project(":common").file("src/main/resources")}")
+
+      environmentVariable("DATAGEN", "TRUE")
+    }
+  }
+
+  runs.configureEach {
+    vmArg("-Dmixin.debug=true")
+    vmArg("-Dmixin.debug.export=true")
+  }
+}
+
+configurations {
+  common
+  shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
+  compileClasspath.extendsFrom common
+  runtimeClasspath.extendsFrom common
+  developmentFabric.extendsFrom common
+}
+
+dependencies {
+  modImplementation("net.fabricmc:fabric-loader:${fabric_loader_version}")
+  modImplementation("net.fabricmc.fabric-api:fabric-api:${fabric_api_version}")
+  common(project(path: ":common", configuration: "namedElements")) { transitive = false }
+  shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive = false }
+
+  modImplementation(include("com.tterrag.registrate_fabric:Registrate:${registrate_fabric_version}"))
+
+  modImplementation("dev.imabad:Theatrical-fabric:${theatrical_version}")
+  modImplementation("maven.modrinth:theatrical-extra-lights:${extra_lights_fabric_version}")
+
+  modCompileOnlyApi("mezz.jei:jei-${minecraft_version}-fabric-api:${jei_version}")
+  modRuntimeOnly("mezz.jei:jei-${minecraft_version}-fabric:${jei_version}")
+
+  // arch api is required for theatrical and extra lights but i dont use it thus modLocalRuntime
+  modLocalRuntime("dev.architectury:architectury-fabric:${arch_api_version}")
+  modLocalRuntime("maven.modrinth:lazydfu:${lazydfu_version}")
+  modLocalRuntime("com.terraformersmc:modmenu:${modmenu_version}")
+}
+
+processResources {
+  // set up properties for filling into metadata
+  Map<String, String> properties = Map.of(
+    "mod_id", mod_id,
+    "version", mod_version,
+    "fabric_loader_version", fabric_loader_version,
+    "fabric_api_version", fabric_api_version,
+    "minecraft_version", minecraft_version,
+    "theatrical_version_range", theatrical_fabric_version_range,
+  )
+  properties.forEach((k, v) -> inputs.property(k, v))
+
+  filesMatching("fabric.mod.json") {
+    expand properties
+  }
+}
+
+shadowJar {
+  exclude "architectury.common.json"
+
+  configurations = [project.configurations.shadowCommon]
+  archiveClassifier = "dev-shadow"
+}
+
+remapJar {
+  injectAccessWidener = true
+  input.set shadowJar.archiveFile
+  dependsOn shadowJar
+  archiveClassifier = null
+}
+
+jar {
+  archiveClassifier = "dev"
+}
+
+sourcesJar {
+  def commonSources = project(":common").sourcesJar
+  dependsOn commonSources
+  from commonSources.archiveFile.map { zipTree(it) }
+}
+
+components.java {
+  withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
+    skip()
+  }
+}
+
+publishMods {
+  type = STABLE
+  file = tasks.remapJar.archiveFile
+  version.set("${minecraft_version}-${mod_version}-fabric")
+  changelog = rootProject.file("CHANGELOG.md").text
+
+  curseforge {
+    displayName = version.get()
+    projectId = curseforge_id
+    accessToken = System.getenv("CURSEFORGE_TOKEN")
+    minecraftVersions.add(minecraft_version)
+    modLoaders.add("fabric")
+
+    requires("theatrical")
+    optional("theatrical-extra-lights")
+  }
+
+  modrinth {
+    displayName = "Theatrical: Workbench ${mod_version} Fabric"
+    projectId = modrinth_id
+    accessToken = System.getenv("MODRINTH_TOKEN")
+    minecraftVersions.add(minecraft_version)
+    modLoaders.add("fabric")
+
+    requires("theatrical")
+    optional("theatrical-extra-lights")
+  }
+}

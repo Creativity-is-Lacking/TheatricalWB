@@ -1,0 +1,135 @@
+plugins {
+  id "com.github.johnrengelman.shadow" version "7.1.2"
+}
+
+architectury {
+  platformSetupLoomIde()
+  forge()
+}
+
+loom {
+  accessWidenerPath = project(":common").loom.accessWidenerPath
+
+  forge {
+    convertAccessWideners = true
+    extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
+  }
+}
+
+configurations {
+  common
+  shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
+  compileClasspath.extendsFrom common
+  runtimeClasspath.extendsFrom common
+  developmentForge.extendsFrom common
+}
+
+dependencies {
+  forge("net.minecraftforge:forge:${minecraft_version}-${forge_version}")
+  compileOnly("io.github.llamalad7:mixinextras-common:${mixin_extras_version}")
+  annotationProcessor(implementation(include("io.github.llamalad7:mixinextras-forge:${mixin_extras_version}")))
+  common(project(path: ":common", configuration: "namedElements")) { transitive = false }
+  shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
+
+  modImplementation(include("com.tterrag.registrate:Registrate:${registrate_forge_version}"))
+
+  modImplementation("dev.imabad:Theatrical-forge:${theatrical_version}")
+  modImplementation("maven.modrinth:theatrical-extra-lights:${extra_lights_forge_version}")
+
+  modCompileOnlyApi("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
+  modRuntimeOnly("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
+
+  // arch api is required for theatrical and extra lights but i dont use it thus modLocalRuntime
+  modLocalRuntime("dev.architectury:architectury-forge:${arch_api_version}")
+
+  // also this because forge is stupid
+  forgeRuntimeLibrary "ch.bildspur:artnet4j:0.6.3"
+  forgeRuntimeLibrary "org.yaml:snakeyaml:2.2"
+  forgeRuntimeLibrary 'com.sun.activation:javax.activation:1.2.0'
+}
+
+processResources {
+  Map<String, String> properties = Map.of(
+    "mod_id", mod_id,
+    "version", mod_version,
+    "forge_version", forge_version.split("\\.")[0],
+    "minecraft_version", minecraft_version,
+    "theatrical_version_range", theatrical_forge_version_range,
+  )
+  properties.forEach((k, v) -> inputs.property(k, v))
+
+  filesMatching("META-INF/mods.toml") {
+    expand properties
+  }
+}
+
+loom {
+  forge {
+    mixinConfig("theatricalwb-common.mixins.json")
+  }
+
+  runs.configureEach {
+    vmArg("-Dmixin.debug=true")
+    vmArg("-Dmixin.debug.export=true")
+  }
+}
+
+shadowJar {
+  exclude "fabric.mod.json"
+  exclude "architectury.common.json"
+
+  configurations = [project.configurations.shadowCommon]
+  archiveClassifier = "dev-shadow"
+}
+
+remapJar {
+  injectAccessWidener = true
+  input.set shadowJar.archiveFile
+  dependsOn shadowJar
+  archiveClassifier = null
+}
+
+jar {
+  archiveClassifier = "dev"
+}
+
+sourcesJar {
+  def commonSources = project(":common").sourcesJar
+  dependsOn commonSources
+  from commonSources.archiveFile.map { zipTree(it) }
+}
+
+components.java {
+  withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
+    skip()
+  }
+}
+
+publishMods {
+  type = STABLE
+  file = tasks.remapJar.archiveFile
+  version.set("${minecraft_version}-${mod_version}-forge")
+  changelog = rootProject.file("CHANGELOG.md").text
+
+  curseforge {
+    displayName = version.get()
+    projectId = curseforge_id
+    accessToken = System.getenv("CURSEFORGE_TOKEN")
+    minecraftVersions.add(minecraft_version)
+    modLoaders.add("forge")
+
+    requires("theatrical")
+    optional("theatrical-extra-lights")
+  }
+
+  modrinth {
+    displayName = "Theatrical: Workbench ${mod_version} Forge"
+    projectId = modrinth_id
+    accessToken = System.getenv("MODRINTH_TOKEN")
+    minecraftVersions.add(minecraft_version)
+    modLoaders.add("forge")
+
+    requires("theatrical")
+    optional("theatrical-extra-lights")
+  }
+}

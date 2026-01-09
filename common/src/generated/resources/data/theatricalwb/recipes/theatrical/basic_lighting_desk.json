@@ -1,0 +1,26 @@
+{
+  "type": "theatricalwb:workbench",
+  "materials": [
+    {
+      "item": "minecraft:stone_button",
+      "theatricalwb:count": 13
+    },
+    {
+      "item": "minecraft:iron_ingot",
+      "theatricalwb:count": 4
+    },
+    {
+      "item": "minecraft:redstone"
+    },
+    {
+      "item": "minecraft:blue_dye"
+    },
+    {
+      "item": "minecraft:gray_dye"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "theatrical:basic_lighting_desk"
+  }
+}

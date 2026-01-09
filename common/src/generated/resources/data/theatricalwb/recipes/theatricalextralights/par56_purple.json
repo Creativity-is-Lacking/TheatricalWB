@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "theatricalextralights:par56_warm"
+    },
+    {
+      "item": "minecraft:purple_stained_glass_pane"
+    }
+  ],
+  "result": {
+    "item": "theatricalextralights:par56_purple"
+  }
+}

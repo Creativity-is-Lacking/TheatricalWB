@@ -1,0 +1,19 @@
+{
+  "type": "theatricalwb:workbench",
+  "materials": [
+    {
+      "item": "theatrical:pipe"
+    },
+    {
+      "item": "minecraft:redstone"
+    },
+    {
+      "item": "theatricalwb:led_bulb",
+      "theatricalwb:count": 9
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "theatricalextralights:vertical_bar"
+  }
+}

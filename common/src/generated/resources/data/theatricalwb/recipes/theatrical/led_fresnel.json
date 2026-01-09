@@ -1,0 +1,20 @@
+{
+  "type": "theatricalwb:workbench",
+  "materials": [
+    {
+      "item": "minecraft:iron_ingot",
+      "theatricalwb:count": 5
+    },
+    {
+      "item": "minecraft:redstone",
+      "theatricalwb:count": 2
+    },
+    {
+      "item": "theatricalwb:led_bulb"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "theatrical:led_fresnel"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "theatricalwb:workbench",
+  "materials": [
+    {
+      "item": "minecraft:iron_ingot",
+      "theatricalwb:count": 4
+    },
+    {
+      "item": "theatricalwb:led_bulb"
+    },
+    {
+      "item": "theatricalwb:motor"
+    },
+    {
+      "item": "theatricalwb:mirror"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "theatricalextralights:moving_scan"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "type": "theatricalwb:workbench",
+  "materials": [
+    {
+      "item": "minecraft:iron_ingot",
+      "theatricalwb:count": 8
+    },
+    {
+      "item": "minecraft:redstone"
+    },
+    {
+      "item": "theatricalwb:incandescent_bulb",
+      "theatricalwb:count": 8
+    },
+    {
+      "item": "theatrical:pipe"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "theatricalextralights:x8par_warm"
+  }
+}

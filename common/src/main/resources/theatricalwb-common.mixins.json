@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "purplecreate.theatricalwb.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "IngredientMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

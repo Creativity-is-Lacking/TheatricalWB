@@ -1,0 +1,13 @@
+{
+  "type": "theatricalwb:workbench",
+  "materials": [
+    {
+      "item": "minecraft:iron_ingot",
+      "theatricalwb:count": 2
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "theatrical:tank_trap"
+  }
+}

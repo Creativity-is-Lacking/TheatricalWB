@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "theatricalextralights:rgb_bar"
+    }
+  ],
+  "result": {
+    "item": "theatricalextralights:vertical_bar"
+  }
+}

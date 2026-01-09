@@ -1,0 +1,17 @@
+{
+  "type": "theatricalwb:remainder",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "theatricalextralights:par56_orange"
+    }
+  ],
+  "remainders": [
+    {
+      "item": "minecraft:orange_stained_glass_pane"
+    }
+  ],
+  "result": {
+    "item": "theatricalextralights:par56_warm"
+  }
+}

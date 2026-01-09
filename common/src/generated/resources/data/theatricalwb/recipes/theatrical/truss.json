@@ -1,0 +1,19 @@
+{
+  "type": "theatricalwb:workbench",
+  "materials": [
+    [
+      {
+        "item": "theatrical:pipe",
+        "theatricalwb:count": 6
+      },
+      {
+        "tag": "theatricalwb:mergedtag/iron_rods",
+        "theatricalwb:count": 6
+      }
+    ]
+  ],
+  "result": {
+    "count": 1,
+    "item": "theatrical:truss"
+  }
+}

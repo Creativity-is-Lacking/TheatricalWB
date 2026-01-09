@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "theatricalwb:block/workbench",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "theatricalwb:block/workbench"
+    },
+    "facing=south": {
+      "model": "theatricalwb:block/workbench",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "theatricalwb:block/workbench",
+      "y": 270
+    }
+  }
+}

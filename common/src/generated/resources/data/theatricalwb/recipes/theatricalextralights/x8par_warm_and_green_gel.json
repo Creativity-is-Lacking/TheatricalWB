@@ -1,0 +1,18 @@
+{
+  "type": "theatricalwb:remainder",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "theatricalextralights:x8par_green"
+    }
+  ],
+  "remainders": [
+    {
+      "count": 8,
+      "item": "minecraft:green_stained_glass_pane"
+    }
+  ],
+  "result": {
+    "item": "theatricalextralights:x8par_warm"
+  }
+}

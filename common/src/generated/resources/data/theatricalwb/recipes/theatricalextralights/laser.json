@@ -1,0 +1,25 @@
+{
+  "type": "theatricalwb:workbench",
+  "materials": [
+    {
+      "item": "minecraft:iron_ingot",
+      "theatricalwb:count": 4
+    },
+    {
+      "item": "minecraft:redstone"
+    },
+    {
+      "item": "theatricalwb:laser_diode"
+    },
+    {
+      "item": "theatricalwb:motor"
+    },
+    {
+      "item": "theatricalwb:mirror"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "theatricalextralights:laser"
+  }
+}

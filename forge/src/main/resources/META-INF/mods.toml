@@ -1,0 +1,40 @@
+modLoader="javafml"
+loaderVersion = "[${forge_version},)"
+issueTrackerURL="https://github.com/PurpleCreate/TheatricalWB"
+license="MIT"
+
+[[mods]]
+modId="${mod_id}"
+version="${version}"
+displayName="Theatrical: Workbench"
+authors="Purple Create, C1200"
+description='''
+This mod adds a workbench that allows you to craft items from Theatrical and
+Theatrical: Extra Lights.
+
+a Purple Create mod
+'''
+logoFile="logo.png"
+displayURL="https://modrinth.com/mod/theatricalwb"
+updateJSONURL="https://api.modrinth.com/updates/theatricalwb/forge_updates.json"
+
+[[dependencies.${mod_id}]]
+    modId="forge"
+    mandatory=true
+    versionRange = "[${forge_version},)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="minecraft"
+    mandatory=true
+    versionRange = "[${minecraft_version}]"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="theatrical"
+    mandatory=true
+    versionRange = "${theatrical_version_range}"
+    ordering="NONE"
+    side="BOTH"

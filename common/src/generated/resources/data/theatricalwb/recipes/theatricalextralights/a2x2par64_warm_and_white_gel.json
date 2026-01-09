@@ -1,0 +1,18 @@
+{
+  "type": "theatricalwb:remainder",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "theatricalextralights:a2x2par64_white"
+    }
+  ],
+  "remainders": [
+    {
+      "count": 4,
+      "item": "minecraft:white_stained_glass_pane"
+    }
+  ],
+  "result": {
+    "item": "theatricalextralights:a2x2par64_warm"
+  }
+}

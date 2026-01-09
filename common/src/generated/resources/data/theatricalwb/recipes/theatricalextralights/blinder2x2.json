@@ -1,0 +1,21 @@
+{
+  "type": "theatricalwb:workbench",
+  "materials": [
+    {
+      "item": "minecraft:iron_ingot",
+      "theatricalwb:count": 6
+    },
+    {
+      "item": "minecraft:redstone",
+      "theatricalwb:count": 2
+    },
+    {
+      "item": "theatricalwb:led_bulb",
+      "theatricalwb:count": 4
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "theatricalextralights:blinder2x2"
+  }
+}

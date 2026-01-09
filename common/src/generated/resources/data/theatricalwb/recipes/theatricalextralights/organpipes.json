@@ -1,0 +1,23 @@
+{
+  "type": "theatricalwb:workbench",
+  "materials": [
+    {
+      "item": "minecraft:iron_ingot",
+      "theatricalwb:count": 4
+    },
+    {
+      "item": "minecraft:barrel",
+      "theatricalwb:count": 2
+    },
+    {
+      "item": "theatrical:pipe"
+    },
+    {
+      "item": "theatricalwb:motor"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "theatricalextralights:organpipes"
+  }
+}
