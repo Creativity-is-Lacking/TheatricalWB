@@ -15,8 +15,8 @@ Theatrical: Extra Lights.
 a Purple Create mod
 '''
 logoFile="logo.png"
-displayURL="https://modrinth.com/mod/theatricalwb"
-updateJSONURL="https://api.modrinth.com/updates/theatricalwb/forge_updates.json"
+displayURL="https://modrinth.com/mod/theatrical-workbench"
+updateJSONURL="https://api.modrinth.com/updates/theatrical-workbench/forge_updates.json"
 
 [[dependencies.${mod_id}]]
     modId="forge"
